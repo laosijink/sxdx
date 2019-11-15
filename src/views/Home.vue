@@ -27,7 +27,7 @@
           </div>
           
           <!-- 登录按钮 -->
-          <el-button type="primary" plain class="loginbut info" >登录</el-button>
+          <el-button type="primary" plain class="loginbut info" @click="login">登录</el-button>
           <!-- 忘记密码 -->
           <el-link type="info" @click="toPath()">忘记密码</el-link>
           <!-- 注册 -->
@@ -47,6 +47,7 @@ import list from "@/components/list.vue";
 export default {
   data() {
     return {
+        //选项数据
       options: [
         {
           value: "选项1",
@@ -65,12 +66,19 @@ export default {
       input1: "",
       input2: "",
       input3: "",
-      identifyCode: "5132"
+      identifyCode: "5132",
+      //请求数据列表
+      dataList:[],
     };
   },
   components: {
     yzm,
     list
+  },
+  mounted() {
+    this.$apis.getIndexData().then((res)=>{
+        console.log(res);
+    })
   },
   methods: {
     //验证码模块
@@ -89,7 +97,23 @@ export default {
     //跳转路由
     toPath() {
       this.$router.push();
-    }
+    },
+    //登录按钮
+        login(){
+            if(this.input3 === this.identifyCode){
+                this.refreshCode();
+                var loginData = {
+                    uname: this.input1,
+                    upwd: this.input2,
+                }
+                // this.$apis.login().then((res)=>{
+                //     console.log(res);
+                // });
+            }else{
+                 this.$message.error('验证码错误！');
+            }
+            
+        }
   }
 };
 </script>

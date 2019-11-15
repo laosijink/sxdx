@@ -1,12 +1,11 @@
 import request from "./http";
 import params from "./params";
 
-var poxy = "/apis";
 class Apis {
-    getTest() {
+    getIndexData() {
         return request({
             method: "GET",
-            url: poxy + "/api/v1/topics",
+            url: "/test",
             headers: {
                 token: params.token
             }
