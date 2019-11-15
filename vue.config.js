@@ -11,7 +11,7 @@ module.exports = {
     // 配置代理
     devServer: {
         host: "0.0.0.0",
-        port: 8899,
+        port: 8080,
         // proxy: {
         //     "/apis": {
         //         target: "https://cnodejs.org",

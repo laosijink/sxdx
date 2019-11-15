@@ -34,7 +34,16 @@
           <el-link type="primary" @click="toPath()" class="register">立即注册>></el-link>
         </div>
         <div class="list">
-          <list></list>
+          <ul class="oul">
+              <li>
+                  <p>测试名称</p>
+                  <p>测试时间</p>
+              </li>
+              <li v-for="(item,index) in dataList" :key="index">
+                  <p>名称：{{ item.name }}</p>
+                  <p>时间：{{ item.time }}</p>
+              </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -78,6 +87,7 @@ export default {
   mounted() {
     this.$apis.getIndexData().then((res)=>{
         console.log(res);
+        this.dataList = res.data;
     })
   },
   methods: {
@@ -170,6 +180,9 @@ export default {
     top: 60px;
     right: 0px;
     width: 650px;
+    .oul{
+        background: rgba($color: #fff, $alpha: 0.8);
+    }
     }
   }
 }
