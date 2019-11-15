@@ -1,0 +1,24 @@
+$bassSize:75/2;
+
+@function r($px){
+    @return $px/$bassSize+rem;
+}
+
+@function r($px){
+    @return $px/$bassSize+rem;
+}
+@mixin setRem($name, $val...) {
+    // ...固定写法,向后若干个值
+    $max: length($val); //4
+    $str: "";
+    // 从1开始到$max(4)
+    @for $i from 1 through $max {
+        $value: nth($val, $i)/$bassSize; //2.17391
+        $str: $str+$value+rem; //4.34783rem
+
+        @if $i<$max {
+            $str:#{$str+" "}; //4.34783rem空格4.34783rem空格
+        }
+    }
+#{$name}:$str;
+}
