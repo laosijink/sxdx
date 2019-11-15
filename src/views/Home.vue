@@ -18,14 +18,30 @@
             ></el-option>
           </el-select>
           <!-- 用户名、密码 -->
-          <el-input placeholder="用户名" prefix-icon="el-icon-user-solid" v-model="input1" class="info"></el-input>
-          <el-input placeholder="请输入密码" prefix-icon="el-icon-lock" v-model="input2" show-password class="info"></el-input>
+          <el-input
+            placeholder="用户名"
+            prefix-icon="el-icon-user-solid"
+            v-model="input1"
+            class="info"
+          ></el-input>
+          <el-input
+            placeholder="请输入密码"
+            prefix-icon="el-icon-lock"
+            v-model="input2"
+            show-password
+            class="info"
+          ></el-input>
           <!-- 验证码 -->
-          <el-input placeholder="请输入验证码" prefix-icon="el-icon-edit" v-model="input3" class="info ident"></el-input>
+          <el-input
+            placeholder="请输入验证码"
+            prefix-icon="el-icon-edit"
+            v-model="input3"
+            class="info ident"
+          ></el-input>
           <div class="verify-box" @click="refreshCode">
             <yzm :identifyCode="identifyCode"></yzm>
           </div>
-          
+
           <!-- 登录按钮 -->
           <el-button type="primary" plain class="loginbut info" @click="login">登录</el-button>
           <!-- 忘记密码 -->
@@ -34,16 +50,19 @@
           <el-link type="primary" @click="toPath()" class="register">立即注册>></el-link>
         </div>
         <div class="list">
-          <ul class="oul">
+          <h1>评审管理制度</h1>
+          <div class="block">
+            <ul>
               <li>
-                  <p>测试名称</p>
-                  <p>测试时间</p>
+                乔鹏书先生纪念奖学金
+                <span>2019-10-4</span>
               </li>
-              <li v-for="(item,index) in dataList" :key="index">
-                  <p>名称：{{ item.name }}</p>
-                  <p>时间：{{ item.time }}</p>
+              <li v-for="(item,index) in dataList" :key="index" class="demonstration">
+                {{ item.name }}
+                <span>{{ item.time }}</span>
               </li>
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -56,7 +75,7 @@ import list from "@/components/list.vue";
 export default {
   data() {
     return {
-        //选项数据
+      //选项数据
       options: [
         {
           value: "选项1",
@@ -77,7 +96,7 @@ export default {
       input3: "",
       identifyCode: "5132",
       //请求数据列表
-      dataList:[],
+      dataList: []
     };
   },
   components: {
@@ -85,10 +104,10 @@ export default {
     list
   },
   mounted() {
-    this.$apis.getIndexData().then((res)=>{
-        console.log(res);
-        this.dataList = res.data;
-    })
+    this.$apis.getIndexData().then(res => {
+      console.log(res);
+      this.dataList = res.data;
+    });
   },
   methods: {
     //验证码模块
@@ -109,21 +128,20 @@ export default {
       this.$router.push();
     },
     //登录按钮
-        login(){
-            if(this.input3 === this.identifyCode){
-                this.refreshCode();
-                var loginData = {
-                    uname: this.input1,
-                    upwd: this.input2,
-                }
-                // this.$apis.login().then((res)=>{
-                //     console.log(res);
-                // });
-            }else{
-                 this.$message.error('验证码错误！');
-            }
-            
-        }
+    login() {
+      if (this.input3 === this.identifyCode) {
+        this.refreshCode();
+        var loginData = {
+          uname: this.input1,
+          upwd: this.input2
+        };
+        // this.$apis.login().then((res)=>{
+        //     console.log(res);
+        // });
+      } else {
+        this.$message.error("验证码错误！");
+      }
+    }
   }
 };
 </script>
@@ -149,7 +167,7 @@ export default {
       position: absolute;
       left: -400px;
     }
-    .login{
+    .login {
       position: absolute;
       padding: 20px 20px;
       border-radius: 10px;
@@ -157,32 +175,64 @@ export default {
       left: 20px;
       width: 320px;
       background: rgba($color: #fff, $alpha: 0.8);
-      .info{
-        margin: 10px 0  10px 0;
+      .info {
+        margin: 10px 0 10px 0;
       }
-      .ident{
+      .ident {
         width: 140px;
       }
-      .register{
+      .register {
         float: right;
       }
-      .verify-box{
+      .verify-box {
         display: inline-block;
         transform: translateY(11px);
         margin-left: 40px;
       }
-      .loginbut{
+      .loginbut {
         width: 100%;
       }
     }
-    .list{
+    .list {
       position: absolute;
-    top: 60px;
-    right: 0px;
-    width: 650px;
-    .oul{
+      top: 44px;
+      right: 0px;
+      width: 650px;
+      h1 {
+        font-size: 22px;
+        text-align: center;
+        line-height: 50px;
+        width: 649px;
+        border-radius: 10px 10px 0 0;
+        background: rgba($color: #fff, $alpha: 0.9);
+      }
+      .block {
         background: rgba($color: #fff, $alpha: 0.8);
-    }
+        height: 425px;
+        border-radius: 0 0 10px 10px;
+        ul {
+          padding: 0 20px;
+          height: 400px;
+          overflow: auto;
+          li {
+            margin: 25px 0;
+            font-size: 16px;
+            span {
+              float: right;
+            }
+          }
+        }
+
+        .el-pagination {
+          white-space: nowrap;
+          padding: 2px 5px;
+          color: #303133;
+          font-weight: 700;
+          position: absolute;
+          bottom: 20px;
+          left: 150px;
+        }
+      }
     }
   }
 }
