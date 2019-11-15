@@ -1,24 +1,16 @@
-# cli3test
+# 项目介绍
 
-## Project setup
+## 1.安装模块
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 开发调试
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 打包
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
