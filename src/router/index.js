@@ -12,15 +12,27 @@ const routes = [{
     path: "/",
     name: "home",
     component: () => import("@/views/Home.vue"),
-    children: [{
-        path: "index",
-        component: () => import("@/components/index.vue"),
+    children: [
+      {
+        path: "login",
+        component: () => import("@/components/login.vue"),
         meta: {
-          title: "首页",
+          title: "注册",
           uname: "yuxia",
           keepAlive:false
         }
-      }]
+      },
+      {
+        path: "register",
+        component: () => import("@/components/register.vue"),
+        meta: {
+          title: "注册",
+          uname: "yuxia",
+          keepAlive:false
+        }
+      },
+    ],
+    redirect:"login"
 }];
 const router = new VueRouter({
   // mode:"history",
