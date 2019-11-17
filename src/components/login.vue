@@ -8,7 +8,7 @@
         <img src="../../public/img/bkg.jpg" id="bkgImg" />
         <div class="login">
           <!-- 选择器 -->
-          <h1>登录</h1>
+          <span class="el-icon-coordinate fs20" style="display:block">登录</span>
           <el-select v-model="value" placeholder="请选择" class="info">
             <el-option
               v-for="item in options"
@@ -53,10 +53,6 @@
           <h1>评审管理制度</h1>
           <div class="block">
             <ul>
-              <li>
-                乔鹏书先生纪念奖学金
-                <span>2019-10-4</span>
-              </li>
               <li v-for="(item,index) in dataList" :key="index" class="demonstration">
                 {{ item.name }}
                 <span>{{ item.time }}</span>
@@ -162,7 +158,7 @@ export default {
     position: relative;
     margin: 0 auto;
     width: 1200px;
-    height: 550px;
+    height: 750px;
     #bkgImg {
       position: absolute;
       left: -400px;
@@ -171,7 +167,7 @@ export default {
       position: absolute;
       padding: 20px 20px;
       border-radius: 10px;
-      top: 100px;
+      top: 135px;
       left: 20px;
       width: 320px;
       background: rgba($color: #fff, $alpha: 0.8);
@@ -195,7 +191,7 @@ export default {
     }
     .list {
       position: absolute;
-      top: 44px;
+      top: 84px;
       right: 0px;
       width: 650px;
       h1 {

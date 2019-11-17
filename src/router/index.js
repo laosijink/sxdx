@@ -17,8 +17,7 @@ const routes = [{
         path: "login",
         component: () => import("@/components/login.vue"),
         meta: {
-          title: "注册",
-          uname: "yuxia",
+          title: "登录",
           keepAlive:false
         }
       },
@@ -27,7 +26,6 @@ const routes = [{
         component: () => import("@/components/register.vue"),
         meta: {
           title: "注册",
-          uname: "yuxia",
           keepAlive:false
         }
       },

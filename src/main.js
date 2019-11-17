@@ -5,9 +5,16 @@ import store from "@/core/store";
 import Router from 'vue-router';
 import vueWechatTitle from "vue-wechat-title";
 import coreConfig from "@/core/core.config.js"
+import VueResource from 'vue-resource';
+import axios from 'axios'
+import Qs from 'qs'
+//QS是axios库中带的，不需要我们再npm安装一个
+ 
+Vue.prototype.axios = axios;
+Vue.prototype.qs = Qs;
 Vue.use(vueWechatTitle);
 Vue.use(coreConfig);
-
+Vue.use(VueResource) ;
 //element组件引入部分
 import 'element-ui/lib/theme-chalk/index.css';
 // import { Select,Option,Input,Button,Link,Table } from 'element-ui';
@@ -184,7 +191,20 @@ Router.prototype.push = function push(location) {
 Vue.config.productionTip = false;
 
 
-
+router.beforeEach((to, from, next) => {
+  /* 路由发生变化修改页面meta */
+  if(to.meta.content){
+    let head = document.getElementsByTagName('head');
+    let meta = document.createElement('meta');
+    meta.content = to.meta.content;
+    head[0].appendChild(meta)
+  }
+  /* 路由发生变化修改页面title */
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }
+  next()
+});
 
 new Vue({
   router,

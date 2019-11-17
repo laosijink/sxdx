@@ -5,7 +5,7 @@ class Apis {
     getIndexData() {
         return request({
             method: "GET",
-            url: "/test",
+            url: "/file/getFile",
             headers: {
                 token: params.token
             }
