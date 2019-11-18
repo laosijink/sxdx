@@ -29,6 +29,14 @@ const routes = [{
           keepAlive:false
         }
       },
+      {
+        path: "user_s",
+        component: () => import("@/components/user_s.vue"),
+        meta: {
+          title: "学生端",
+          keepAlive:false
+        }
+      },
     ],
     redirect:"login"
 }];

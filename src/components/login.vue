@@ -54,10 +54,9 @@
           <div class="block">
             <ul>
               <li v-for="(item,index) in dataList" :key="index" class="demonstration">
-                {{ item.name }}
+                <a :href="item.url">{{ item.name }}</a>
                 <span>{{ item.time }}</span>
               </li>
-              <a href="./1.pdf">11111111111111111111111</a>
             </ul>
           </div>
         </div>
@@ -67,6 +66,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import yzm from "@/components/common/yzm.vue";
 export default {
   data() {
