@@ -9,7 +9,7 @@
         <div class="login">
           <!-- 选择器 -->
           <span class="el-icon-coordinate fs20" style="display:block">登录</span>
-          <el-select v-model="value" placeholder="请选择" class="info">
+          <el-select v-model="info.value" placeholder="请选择" class="info">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -21,13 +21,13 @@
           <el-input
             placeholder="用户名"
             prefix-icon="el-icon-user-solid"
-            v-model="input1"
+            v-model="info.uname"
             class="info"
           ></el-input>
           <el-input
             placeholder="请输入密码"
             prefix-icon="el-icon-lock"
-            v-model="input2"
+            v-model="info.upwd"
             show-password
             class="info"
           ></el-input>
@@ -68,37 +68,38 @@
 
 <script>
 import yzm from "@/components/common/yzm.vue";
-import list from "@/components/common/list.vue";
 export default {
   data() {
     return {
       //选项数据
       options: [
         {
-          value: "选项1",
+          value: "学生",
           label: "学生"
         },
         {
-          value: "选项2",
+          value: "教师",
           label: "教师"
         },
         {
-          value: "选项3",
+          value: "管理员",
           label: "管理员"
         }
       ],
-      value: "选项1",
-      input1: "",
-      input2: "",
+
       input3: "",
       identifyCode: "5132",
       //请求数据列表
-      dataList: []
+      dataList: [],
+      info: {
+        value: "学生",
+        uname: "",
+        upwd: ""
+      }
     };
   },
   components: {
-    yzm,
-    list
+    yzm
   },
   mounted() {
     this.$apis.getIndexData().then(res => {
@@ -128,17 +129,55 @@ export default {
     login() {
       if (this.input3 === this.identifyCode) {
         this.refreshCode();
-        var loginData = {
-          uname: this.input1,
-          upwd: this.input2
-        };
-        // this.$apis.login().then((res)=>{
-        //     console.log(res);
-        // });
+        let data = this.info;
+        if (data.value === "学生") {
+          axios({
+            method: "post",
+            url: "/student/login",
+            withCredentials: true,
+            data
+          }).then(res => {
+            this.$message({
+              showClose: true,
+              message: "登录成功！",
+              type: "success"
+            });
+            // this.$router.push("/login");
+          });
+        } else if (data.value === "教师") {
+          axios({
+            method: "post",
+            url: "/teacher/login",
+            withCredentials: true,
+            data
+          }).then(res => {
+            this.$message({
+              showClose: true,
+              message: "登录成功！",
+              type: "success"
+            });
+            // this.$router.push("/login");
+          });
+        }else{
+          axios({
+            method: "post",
+            url: "/root/login",
+            withCredentials: true,
+            data
+          }).then(res => {
+            this.$message({
+              showClose: true,
+              message: "登录成功！",
+              type: "success"
+            });
+            // this.$router.push("/login");
+          });
+        }
       } else {
         this.$message.error("验证码错误！");
       }
-    }
+    },
+
   }
 };
 </script>

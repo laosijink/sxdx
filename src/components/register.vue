@@ -35,7 +35,7 @@
               label="民族"
               prop="nation"
               :rules="[
-      { required: true, message: '民族不能为空'}
+      { message: '民族不能为空'}
     ]"
             >
               <el-input type="ID" v-model="ruleForm.nation" autocomplete="off"></el-input>
@@ -145,7 +145,7 @@ export default {
       rules: {
         ID: [{ validator: ID, trigger: "blur" }],
         name: [
-          { required: true, message: "请输入姓名", trigger: "blur" },
+          { message: "请输入姓名", trigger: "blur" },
           { min: 3, max: 5, message: "长度在 2 到 5 个字符", trigger: "blur" }
         ],
         pass: [{ validator: validatePass, trigger: "blur" }],
@@ -166,12 +166,19 @@ export default {
             withCredentials: true,
             data: data
           }).then(res => {
-            console.log(res);
-            alert("注册成功");
+            this.$message({
+                showClose: true,
+                message: '注册成功！',
+                type: 'success'
+            });
             this.$router.push("/login");
           });
         } else {
-          alert("注册失败");
+          this.$message({
+                showClose: true,
+                message: '注册失败！',
+                type: 'error'
+            });
           return false;
         }
       });
