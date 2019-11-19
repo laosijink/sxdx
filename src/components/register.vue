@@ -1,4 +1,3 @@
-<!-- 注册 -->
 <template>
   <div>
     <div class="topbt">
@@ -35,7 +34,7 @@
               label="民族"
               prop="nation"
               :rules="[
-      { message: '民族不能为空'}
+      { required: true, message: '民族不能为空'}
     ]"
             >
               <el-input type="ID" v-model="ruleForm.nation" autocomplete="off"></el-input>
@@ -145,7 +144,7 @@ export default {
       rules: {
         ID: [{ validator: ID, trigger: "blur" }],
         name: [
-          { message: "请输入姓名", trigger: "blur" },
+          { required: true, message: "请输入姓名", trigger: "blur" },
           { min: 3, max: 5, message: "长度在 2 到 5 个字符", trigger: "blur" }
         ],
         pass: [{ validator: validatePass, trigger: "blur" }],

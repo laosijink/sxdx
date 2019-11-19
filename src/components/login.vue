@@ -142,7 +142,7 @@ export default {
               message: "登录成功！",
               type: "success"
             });
-            // this.$router.push("/login");
+            // this.$router.push("/user_s");
           });
         } else if (data.value === "教师") {
           axios({
@@ -156,7 +156,7 @@ export default {
               message: "登录成功！",
               type: "success"
             });
-            // this.$router.push("/login");
+            // this.$router.push("/user_t");
           });
         }else{
           axios({
@@ -170,7 +170,7 @@ export default {
               message: "登录成功！",
               type: "success"
             });
-            // this.$router.push("/login");
+            // this.$router.push("/user_r");
           });
         }
       } else {
