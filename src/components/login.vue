@@ -5,7 +5,10 @@
     </div>
     <div class="main">
       <div class="container">
-        <img src="../../public/img/bkg.jpg" id="bkgImg" />
+        
+          <img src="../../public/img/bkg.jpg" id="bkgImg" />
+        
+
         <div class="login">
           <!-- 选择器 -->
           <span class="el-icon-coordinate fs20" style="display:block">登录</span>
@@ -62,6 +65,7 @@
         </div>
       </div>
     </div>
+    <div class="footer"></div>
   </div>
 </template>
 
@@ -137,12 +141,27 @@ export default {
             withCredentials: true,
             data
           }).then(res => {
-            this.$message({
-              showClose: true,
-              message: "登录成功！",
-              type: "success"
-            });
-            // this.$router.push("/user_s");
+            console.log(res);
+            if (res.data.status === 0) {
+              this.$message({
+                showClose: true,
+                message: "登录成功！",
+                type: "success"
+              });
+              this.$router.push("/user_s");
+            } else if (res.data.status === 1) {
+              this.$message({
+                showClose: true,
+                message: "用户名不存在",
+                type: "warning"
+              });
+            } else if (res.data.status === 2) {
+              this.$message({
+                showClose: true,
+                message: "密码错误",
+                type: "error"
+              });
+            }
           });
         } else if (data.value === "教师") {
           axios({
@@ -151,33 +170,60 @@ export default {
             withCredentials: true,
             data
           }).then(res => {
-            this.$message({
-              showClose: true,
-              message: "登录成功！",
-              type: "success"
-            });
-            // this.$router.push("/user_t");
+            if (res.data.status === 0) {
+              this.$message({
+                showClose: true,
+                message: "登录成功！",
+                type: "success"
+              });
+              this.$router.push("/user_t");
+            } else if (res.data.status === 1) {
+              this.$message({
+                showClose: true,
+                message: "用户名不存在",
+                type: "warning"
+              });
+            } else if (res.data.status === 2) {
+              this.$message({
+                showClose: true,
+                message: "密码错误",
+                type: "error"
+              });
+            }
           });
-        }else{
+        } else {
           axios({
             method: "post",
             url: "/root/login",
             withCredentials: true,
             data
           }).then(res => {
-            this.$message({
-              showClose: true,
-              message: "登录成功！",
-              type: "success"
-            });
-            // this.$router.push("/user_r");
+            if (res.data.status === 0) {
+              this.$message({
+                showClose: true,
+                message: "登录成功！",
+                type: "success"
+              });
+              this.$router.push("/user_r");
+            } else if (res.data.status === 1) {
+              this.$message({
+                showClose: true,
+                message: "用户名不存在",
+                type: "warning"
+              });
+            } else if (res.data.status === 2) {
+              this.$message({
+                showClose: true,
+                message: "密码错误",
+                type: "error"
+              });
+            }
           });
         }
       } else {
         this.$message.error("验证码错误！");
       }
-    },
-
+    }
   }
 };
 </script>
@@ -199,10 +245,12 @@ export default {
     margin: 0 auto;
     width: 1200px;
     height: 750px;
+
     #bkgImg {
       position: absolute;
       left: -400px;
     }
+
     .login {
       position: absolute;
       padding: 20px 20px;
@@ -270,6 +318,10 @@ export default {
         }
       }
     }
+  }
+  .footer{
+    height: 10%;
+    background: red;
   }
 }
 </style>

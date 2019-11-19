@@ -21,21 +21,20 @@
                     <span>个人信息</span>
                   </template>
                   <el-menu-item-group>
-                    <el-menu-item index="1-1" @click="change_show('show_info')">查看个人信息</el-menu-item>
-                    <el-menu-item index="1-2" @click="change_show('show_info')">修改个人信息</el-menu-item>
+                    <el-menu-item index="1-1" @click="change_show('user_info')">查看个人信息</el-menu-item>
                   </el-menu-item-group>
                   <el-submenu index="1-3">
                     <template slot="title">账户安全</template>
-                    <el-menu-item index="1-3-1" @click="change_show('show_info')">修改密码</el-menu-item>
-                    <el-menu-item index="1-3-2" @click="change_show('show_info')">注销账户</el-menu-item>
+                    <el-menu-item index="1-3-1" @click="change_show('pwd')">修改密码</el-menu-item>
+                    <el-menu-item index="1-3-2" @click="change_show('logout')">注销账户</el-menu-item>
                   </el-submenu>
                 </el-submenu>
-                <el-menu-item index="1" @click="change_show('show_info')">
+                <el-menu-item index="1">
                   <i class="el-icon-search"></i>
                   <span>查询获奖情况</span>
                 </el-menu-item>
 
-                <el-menu-item index="3" @click="change_show('apply')">
+                <el-menu-item index="3" @click="change_show('apply');getApplyData()">
                   <i class="el-icon-document-remove"></i>
                   <span>申请</span>
                 </el-menu-item>
@@ -54,22 +53,40 @@
 </template>
 
 <script>
+import axios from "axios";
+import user_info from "./common/user_info.vue";
 import apply from "./common/apply.vue";
 import banner from "./common/banner.vue";
+import pwd from "./common/pwd.vue";
+import logout from "./common/logout.vue";
 export default {
   data() {
     return {
-      isStr: "banner"
+      isStr: "banner",
+      user_info:[]
     };
   },
   methods: {
     change_show(isStr) {
       this.isStr = isStr;
+    },
+    getApplyData() {
+      axios({
+        method: "get",
+        url: "/student/getInfo",
+        withCredentials: true
+      }).then((res)=>{
+          this.user_info = res.data;
+          console.log(res);
+      });
     }
   },
   components: {
     apply,
     banner,
+    user_info,
+    pwd,
+    logout
   }
 };
 </script>
@@ -105,7 +122,7 @@ export default {
   text-align: center;
   height: 10000px;
   .bgImg {
-    position: absolut;
+    position: absolute;
     right: 0;
     top: 82%;
     width: 50%;
@@ -130,5 +147,4 @@ export default {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
-
 </style>

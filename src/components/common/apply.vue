@@ -10,15 +10,15 @@
         size="small"
       >
         <el-form-item label="学号" prop="ID">
-          <el-input type="ID" v-model="ID" autocomplete="off" maxlength="12"></el-input>
+          <el-input type="ID" v-model="id" autocomplete="off" maxlength="12"></el-input>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
           <el-input v-model="name"></el-input>
         </el-form-item>
 
         <el-form-item label="性别" prop="sex">
-          <el-radio v-model="radio" label="男">男</el-radio>
-          <el-radio v-model="radio" label="女">女</el-radio>
+          <el-radio v-model="userInfo.gender" label="男" class="sty_left sex">男</el-radio>
+          <el-radio v-model="userInfo.gender" label="女" class="sty_left sex">女</el-radio>
         </el-form-item>
 
         <el-form-item label="民族" prop="nation" :rules="[
@@ -28,7 +28,7 @@
         </el-form-item>
 
         <el-form-item label="专业" prop="uni">
-          <uni @transferUser="getData"></uni>
+          <uni @transferUser="getData" class="sty_left"></uni>
         </el-form-item>
 
         <el-form-item label="身份证号码" prop="IDcard">
@@ -36,10 +36,10 @@
         </el-form-item>
 
         <el-form-item label="手机号码" prop="phone">
-          <el-input v-model="phone"></el-input>
+          <el-input v-model="userInfo.phoneNumber"></el-input>
         </el-form-item>
         <el-form-item label="申请内容" prop="content">
-          <el-select v-model="ruleForm.awards_ID" placeholder="请选择">
+          <el-select v-model="ruleForm.awards_ID" placeholder="请选择" class="sty_left">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -61,13 +61,14 @@
           <el-input autocomplete="off" maxlength="19" type="bank" v-model="ruleForm.card_number"></el-input>
         </el-form-item>
 
-        <el-date-picker
-          v-model="ruleForm.apply_time"
-          type="date"
-          class="input-class"
-          :disabled="true"
-        ></el-date-picker>
-
+        <el-form-item label="申请时间" prop="time">
+          <el-date-picker
+            v-model="ruleForm.apply_time"
+            type="date"
+            class="input-class sty_left"
+            :disabled="true"
+          ></el-date-picker>
+        </el-form-item>
         <el-form-item class="submit">
           <el-button type="primary" @click="submitForm('ruleForm')" size="medium" class="butt">提交</el-button>
           <el-button @click="resetForm('ruleForm')" size="medium" class="butt">重置</el-button>
@@ -90,13 +91,16 @@ export default {
         apply_time: "",
         awards_ID: "奖学金"
       },
-      ID: "",
-      name: "",
-      IDcard: "",
-      phone: "",
-      nation: "",
-      uni: "",
-      radio: "男",
+      userInfo: {
+        id: "",
+        name: "",
+        IDcard: "",
+        phoneNumber: "",
+        nation: "",
+        uni: "",
+        gender: "男"
+      },
+      // {"phoneNumber":"11011112365","gender":"男","nation":"汉族","name":"Jack","idCardNumber":"软件工程","id":"201602801111","department":"软件学院"}
       options: [
         {
           value: "奖学金",
@@ -116,6 +120,7 @@ export default {
   mounted() {
     let that = this;
     that.getdatatime();
+    this.$store.commit("getData");
   },
   methods: {
     submitForm(formName) {
@@ -124,10 +129,11 @@ export default {
           let data = this.ruleForm;
           axios({
             method: "post",
-            url: "/student/register",
+            url: "/student/apply",
             withCredentials: true,
             data: data
           }).then(res => {
+            console.log(res);
             this.$message({
               showClose: true,
               message: "申请成功！",
@@ -162,12 +168,26 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.box-card{
-    width: 1000px;
-    margin: 0 auto;
-    margin-top: 40px;
-    .demo-ruleForm{
-        padding: 30px 40px 30px 40px;
-    }
+.box-card {
+  width: 1000px;
+  margin: 0 auto;
+  margin-top: 40px;
+  .demo-ruleForm {
+    padding: 30px 70px 0;
+  }
+}
+.el-form-item {
+  margin-bottom: 22px;
+}
+.sty_left {
+  float: left;
+  display: block;
+}
+.sex{
+  line-height: 30px;
+}
+.butt{
+  padding: 10px 50px;
+      margin: 10px 45px;
 }
 </style>
