@@ -1,13 +1,14 @@
 <template>
   <div class="home">
-    <div class="topbt">
-      <img src="../../public/img/topbt.png" />
+    <div>
+      <div class="topbt" >
+        <img src="../../public/img/topbt.png" />
+      </div>
     </div>
+
     <div class="main">
       <div class="container">
-        
-          <img src="../../public/img/bkg.jpg" id="bkgImg" />
-        
+        <img src="../../public/img/bkg.jpg" id="bkgImg" />
 
         <div class="login">
           <!-- 选择器 -->
@@ -57,7 +58,7 @@
           <div class="block">
             <ul>
               <li v-for="(item,index) in dataList" :key="index" class="demonstration">
-                <a :href="item.url">{{ item.name }}</a>
+                <a :href="item.url" target="blank">{{ item.name }}</a>
                 <span>{{ item.time }}</span>
               </li>
             </ul>
@@ -139,23 +140,23 @@ export default {
             method: "post",
             url: "/student/login",
             withCredentials: true,
-            data
+            data: data
           }).then(res => {
             console.log(res);
-            if (res.data.status === 0) {
+            if (res.data.status === "0") {
               this.$message({
                 showClose: true,
                 message: "登录成功！",
                 type: "success"
               });
               this.$router.push("/user_s");
-            } else if (res.data.status === 1) {
+            } else if (res.data.status === "1") {
               this.$message({
                 showClose: true,
                 message: "用户名不存在",
                 type: "warning"
               });
-            } else if (res.data.status === 2) {
+            } else if (res.data.status === "2") {
               this.$message({
                 showClose: true,
                 message: "密码错误",
@@ -168,22 +169,22 @@ export default {
             method: "post",
             url: "/teacher/login",
             withCredentials: true,
-            data
+            data: data
           }).then(res => {
-            if (res.data.status === 0) {
+            if (res.data.status === "0") {
               this.$message({
                 showClose: true,
                 message: "登录成功！",
                 type: "success"
               });
               this.$router.push("/user_t");
-            } else if (res.data.status === 1) {
+            } else if (res.data.status === "1") {
               this.$message({
                 showClose: true,
                 message: "用户名不存在",
                 type: "warning"
               });
-            } else if (res.data.status === 2) {
+            } else if (res.data.status === "2") {
               this.$message({
                 showClose: true,
                 message: "密码错误",
@@ -196,22 +197,22 @@ export default {
             method: "post",
             url: "/root/login",
             withCredentials: true,
-            data
+            data: data
           }).then(res => {
-            if (res.data.status === 0) {
+            if (res.data.status === "0") {
               this.$message({
                 showClose: true,
                 message: "登录成功！",
                 type: "success"
               });
               this.$router.push("/user_r");
-            } else if (res.data.status === 1) {
+            } else if (res.data.status === "1") {
               this.$message({
                 showClose: true,
                 message: "用户名不存在",
                 type: "warning"
               });
-            } else if (res.data.status === 2) {
+            } else if (res.data.status === "2") {
               this.$message({
                 showClose: true,
                 message: "密码错误",
@@ -228,37 +229,27 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.topbt {
-  width: 1200px;
-  margin: 0 auto;
-  img {
-    width: 700px;
-    padding: 20px 0 10px 10px;
-  }
-}
 .main {
-  width: 100%;
-  overflow: hidden;
-
   .container {
     position: relative;
     margin: 0 auto;
     width: 1200px;
-    height: 750px;
-
     #bkgImg {
       position: absolute;
-      left: -400px;
+      left: -300px;
+      z-index: -1;
+      height: 100%;
     }
 
     .login {
-      position: absolute;
       padding: 20px 20px;
       border-radius: 10px;
-      top: 135px;
-      left: 20px;
+      margin: 100px 20px;
+      /* top: 135px;
+      left: 20px; */
       width: 320px;
       background: rgba($color: #fff, $alpha: 0.8);
+      display: inline-block;
       .info {
         margin: 10px 0 10px 0;
       }
@@ -278,10 +269,9 @@ export default {
       }
     }
     .list {
-      position: absolute;
-      top: 84px;
-      right: 0px;
+      float: right;
       width: 650px;
+      margin: 50px 10px;
       h1 {
         font-size: 22px;
         text-align: center;
@@ -319,9 +309,9 @@ export default {
       }
     }
   }
-  .footer{
-    height: 10%;
-    background: red;
-  }
 }
+/* .footer {
+  height: 50px;
+  background: red;
+} */
 </style>

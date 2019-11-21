@@ -10,10 +10,10 @@
         size="small"
       >
         <el-form-item label="学号" prop="ID">
-          <el-input type="ID" v-model="id" autocomplete="off" maxlength="12"></el-input>
+          <el-input type="ID" v-model="userInfo.id" autocomplete="off" maxlength="12"></el-input>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
-          <el-input v-model="name"></el-input>
+          <el-input v-model="userInfo.name"></el-input>
         </el-form-item>
 
         <el-form-item label="性别" prop="sex">
@@ -24,7 +24,7 @@
         <el-form-item label="民族" prop="nation" :rules="[
       { message: '民族不能为空'}
     ]">
-          <el-input type="ID" v-model="nation" autocomplete="off"></el-input>
+          <el-input type="ID" v-model="userInfo.nation" autocomplete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="专业" prop="uni">
@@ -32,7 +32,7 @@
         </el-form-item>
 
         <el-form-item label="身份证号码" prop="IDcard">
-          <el-input v-model="IDcard"></el-input>
+          <el-input v-model="userInfo.IDcard"></el-input>
         </el-form-item>
 
         <el-form-item label="手机号码" prop="phone">
@@ -120,7 +120,9 @@ export default {
   mounted() {
     let that = this;
     that.getdatatime();
-    this.$store.commit("getData");
+    this.$apis.getUserData().then((res)=>{
+      this.userInfo = res.data;
+    })
   },
   methods: {
     submitForm(formName) {
@@ -133,20 +135,20 @@ export default {
             withCredentials: true,
             data: data
           }).then(res => {
-            console.log(res);
-            this.$message({
-              showClose: true,
-              message: "申请成功！",
-              type: "success"
-            });
+            if (res.data.status === "1") {
+              this.$message({
+                showClose: true,
+                message: "提交成功！",
+                type: "success"
+              });
+            } else if (res.data.status === "0") {
+              this.$message({
+                showClose: true,
+                message: "提交失败",
+                type: "warning"
+              });
+            }
           });
-        } else {
-          this.$message({
-            showClose: true,
-            message: "申请失败！",
-            type: "error"
-          });
-          return false;
         }
       });
     },

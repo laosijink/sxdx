@@ -11,5 +11,23 @@ class Apis {
             }
         })
     }
+    getUserData() {
+        return request({
+            method: "GET",
+            url: "/student/getInfo",
+            headers: {
+                token: params.token
+            }
+        })
+    }
+    getAward() {
+        return request({
+            method: "GET",
+            url: "/student/getAward",
+            headers: {
+                token: params.token
+            }
+        })
+    }
 }
 export default new Apis();

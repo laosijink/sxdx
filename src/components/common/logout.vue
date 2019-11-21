@@ -1,44 +1,63 @@
 <!--  -->
 <template>
   <div>
-<el-card class="box-card">
-    <p>您将要注销您的账户</p>
-    <el-button type="danger" round @click="open">确定</el-button>
-</el-card>
-
-
+    <el-card class="box-card">
+      <p>您将要注销您的账户</p>
+      <el-button type="danger" round @click="open">确定</el-button>
+    </el-card>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  data () {
-    return {
-    }
+  data() {
+    return {};
   },
-   methods: {
-      open() {
-        this.$prompt('请输入密码', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          inputErrorMessage: '邮箱格式不正确'
-        }).then(({ value }) => {
-          this.$message({
-            type: 'success',
-            message: '您的账户已注销',
-            
+  methods: {
+    open() {
+      this.$prompt("请输入密码", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消"
+      })
+        .then(({value}) => {
+          axios({
+            method: "post",
+            url: "/student/delete",
+            withCredentials: true,
+            data: value.substring(0, value.length - 1)
+          }).then((res) => {
+            if (res.data.status === "0") {
+              this.$message({
+                showClose: true,
+                message: "密码错误！",
+                type: "success"
+              });
+            } else if (res.data.status === "1") {
+              this.$message({
+                showClose: true,
+                message: "注销成功",
+                type: "warning"
+              });
+              this.$router.push("/login");
+              this.$router.go(0);
+            } else if (res.data.status === "2") {
+              this.$message({
+                showClose: true,
+                message: "注销失败",
+                type: "warning"
+              });
+            }
           });
-          this.$router.push("/login");
-          this.$router.go(0)
         }).catch(() => {
           this.$message({
-            type: 'info',
-            message: '取消输入'
-          });       
+            type: "info",
+            message: "取消注销"
+          });
         });
-      }
     }
-}
+  }
+};
 </script>
 
 <style lang='scss' scoped>
@@ -46,7 +65,7 @@ export default {
   width: 500px;
   margin: 0 auto;
   margin-top: 40px;
-  p{
+  p {
     padding: 50px 0;
   }
 }
@@ -54,8 +73,8 @@ export default {
   margin-bottom: 22px;
 }
 
-.butt{
+.butt {
   padding: 10px 50px;
-      margin: 10px 45px;
+  margin: 10px 45px;
 }
 </style>

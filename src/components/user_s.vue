@@ -29,12 +29,12 @@
                     <el-menu-item index="1-3-2" @click="change_show('logout')">注销账户</el-menu-item>
                   </el-submenu>
                 </el-submenu>
-                <el-menu-item index="1">
+                <el-menu-item index="1" @click="change_show('s_price')">
                   <i class="el-icon-search"></i>
                   <span>查询获奖情况</span>
                 </el-menu-item>
 
-                <el-menu-item index="3" @click="change_show('apply');getApplyData()">
+                <el-menu-item index="3" @click="change_show('apply')">
                   <i class="el-icon-document-remove"></i>
                   <span>申请</span>
                 </el-menu-item>
@@ -53,40 +53,37 @@
 </template>
 
 <script>
+// {"phoneNumber":"11011112365","gender":"男","nation":"汉族","name":"Jack","idCardNumber":"软件工程","id":"201602801111","department":"软件学院"}
 import axios from "axios";
 import user_info from "./common/user_info.vue";
 import apply from "./common/apply.vue";
 import banner from "./common/banner.vue";
 import pwd from "./common/pwd.vue";
 import logout from "./common/logout.vue";
+import s_price from "./common/s_price.vue";
 export default {
   data() {
     return {
       isStr: "banner",
-      user_info:[]
+      user_info: []
     };
+  },
+  mounted(){
+    this.$store.commit("getData");
   },
   methods: {
     change_show(isStr) {
       this.isStr = isStr;
     },
-    getApplyData() {
-      axios({
-        method: "get",
-        url: "/student/getInfo",
-        withCredentials: true
-      }).then((res)=>{
-          this.user_info = res.data;
-          console.log(res);
-      });
-    }
+    
   },
   components: {
     apply,
     banner,
     user_info,
     pwd,
-    logout
+    logout,
+    s_price
   }
 };
 </script>
