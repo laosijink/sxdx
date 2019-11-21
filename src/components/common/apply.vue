@@ -39,7 +39,7 @@
           <el-input v-model="userInfo.phoneNumber"></el-input>
         </el-form-item>
         <el-form-item label="申请内容" prop="content">
-          <el-select v-model="ruleForm.awards_ID" placeholder="请选择" class="sty_left">
+          <el-select v-model="value" filterable placeholder="请选择" class="sty_left">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -68,6 +68,7 @@
             class="input-class sty_left"
             :disabled="true"
           ></el-date-picker>
+          
         </el-form-item>
         <el-form-item class="submit">
           <el-button type="primary" @click="submitForm('ruleForm')" size="medium" class="butt">提交</el-button>
@@ -114,15 +115,16 @@ export default {
           value: "助学贷款",
           label: "助学贷款"
         }
-      ]
+      ],
+      value:""
     };
   },
   mounted() {
     let that = this;
     that.getdatatime();
-    this.$apis.getUserData().then((res)=>{
+    this.$apis.getUserData().then(res => {
       this.userInfo = res.data;
-    })
+    });
   },
   methods: {
     submitForm(formName) {
@@ -161,7 +163,7 @@ export default {
     },
     getData(msg) {
       this.ruleForm.uni = msg;
-    }
+    },
   },
   components: {
     uni
@@ -171,7 +173,7 @@ export default {
 
 <style lang='scss' scoped>
 .box-card {
-  width: 1000px;
+  width: 70%;
   margin: 0 auto;
   margin-top: 40px;
   .demo-ruleForm {
@@ -185,11 +187,28 @@ export default {
   float: left;
   display: block;
 }
-.sex{
+.sex {
   line-height: 30px;
 }
-.butt{
+.butt {
   padding: 10px 50px;
-      margin: 10px 45px;
+  margin: 10px 45px;
+}
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409eff;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
+}
+.demonstration {
+  display: block;
+  color: #8492a6;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.el-col-12 {
+  width: 50%;
+  float: right;
 }
 </style>

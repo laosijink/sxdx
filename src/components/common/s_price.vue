@@ -3,9 +3,9 @@
   <div>
     <el-card class="box-card">
       <el-table :data="tableData" height="250" border style="width: 100%">
-        <el-table-column prop="Time" label="日期" width="180">
+        <el-table-column prop="time" label="日期" width="180">
         </el-table-column>
-        <el-table-column prop="Name" label="奖项">
+        <el-table-column prop="name" label="奖项">
         </el-table-column>
       </el-table>
     </el-card>
@@ -16,28 +16,22 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          Name:"123",
-          Time:"123"
-        }
-      ]
+      tableData: []
     };
   },
   mounted() {
     this.$apis.getAward().then(res => {
       console.log(res);
-      var data = [];
-      for(var k=0;k < res.length;k ++){
-        var obj = {};
-        obj.Name = res[k].name;
-        obj.Time = res[k].time;
-        data[k] = obj;
-      }
-      this.tableData =data;
+      this.tableData = res.data;
+      console.log(this.tableData);
     });
   }
 };
 </script>
 
-<style lang='scss' scoped></style>
+<style lang='scss' scoped>
+  .box-card {
+  width: 70%;
+  margin: 0 auto;
+}
+</style>

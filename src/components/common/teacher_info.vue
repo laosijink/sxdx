@@ -12,7 +12,7 @@
           status-icon
           size="small"
         >
-          <el-form-item label="学号" prop="id">
+          <el-form-item label="工号" prop="id">
             <el-input
               type="id"
               v-model="ruleForm.id"
@@ -52,26 +52,8 @@
             <el-input v-model="ruleForm.phoneNumber" :disabled="isabled"></el-input>
           </el-form-item>
 
-          <el-form-item label="班级" prop="group">
-            <el-input
-              autocomplete="off"
-              maxlength="4"
-              placeholder="例：1605"
-              v-model="ruleForm.class"
-              :disabled="isabled"
-            ></el-input>
-          </el-form-item>
+          
 
-          <el-form-item label="建行卡号" prop="card_number">
-            <el-input
-              autocomplete="off"
-              maxlength="19"
-              type="card_number"
-              v-model="ruleForm.card_number"
-              :disabled="isabled"
-              placeholder="请填写银行卡号"
-            ></el-input>
-          </el-form-item>
 
           <el-form-item class="submit">
             <el-button type="primary" @click="change_info()" size="medium" class="butt">修改信息</el-button>
@@ -97,25 +79,6 @@ export default {
         callback();
       }
     };
-    var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
-        callback();
-      }
-    };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
     let myreg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
     var IDcard = (rule, value, callback) => {
       if (value === "") {
@@ -135,35 +98,18 @@ export default {
       } else {
         callback();
       }
-    };
-    var group = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入班级"));
-      } else {
-        callback();
-      }
-    };
-    var card_number = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入建行卡号"));
-      } else {
-        callback();
-      }
+    
     };
     // {"phoneNumber":"11011112365","gender":"男","nation":"汉族","name":"Jack","idCardNumber":"软件工程","id":"201602801111","department":"软件学院"}
     return {
       ruleForm: {
         id: "",
         name: "",
-        pass: "",
-        checkPass: "",
         IDcard: "",
         phoneNumber: "",
         nation: "",
         uni: "",
         gender: "男",
-        group: "",
-        card_number: ""
       },
       rules: {
         id: [{ validator: id, trigger: "blur" }],
@@ -171,12 +117,8 @@ export default {
           { required: true, message: "请输入姓名", trigger: "blur" },
           { min: 3, max: 5, message: "长度在 2 到 5 个字符", trigger: "blur" }
         ],
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
         IDcard: [{ validator: IDcard, trigger: "blur" }],
         phoneNumber: [{ validator: phoneNumber, trigger: "blur" }],
-        group: [{ validator: group, trigger: "blur" }],
-        card_number: [{ validator: card_number, trigger: "blur" }]
       },
       isabled: true
     };
@@ -230,7 +172,7 @@ export default {
 
 <style lang='scss' scoped>
 .box-card {
-  width: 70%;
+  width: 1000px;
   margin: 0 auto;
   margin-top: 40px;
   .demo-ruleForm {

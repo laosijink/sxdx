@@ -34,10 +34,28 @@
                   <span>查询获奖情况</span>
                 </el-menu-item>
 
-                <el-menu-item index="3" @click="change_show('apply')">
+                <el-submenu index="3">
+                  <template slot="title">
+                    <i class="el-icon-user"></i>
+                    <span>申请</span>
+                  </template>
+                  <el-menu-item-group>
+                    <el-menu-item index="3-1" @click="change_show('apply')">填写申请信息</el-menu-item>
+                    <el-menu-item index="3-2" @click="change_show('down')">下载申请表</el-menu-item>
+                  </el-menu-item-group>
+                </el-submenu>
+
+                
+
+                 <el-menu-item index="4" @click="change_show('file')">
+                  <i class="el-icon-search"></i>
+                  <span>查看文件</span>
+                </el-menu-item>
+
+                <!-- <el-menu-item index="3" @click="change_show('apply')">
                   <i class="el-icon-document-remove"></i>
                   <span>申请</span>
-                </el-menu-item>
+                </el-menu-item>-->
               </el-menu>
             </el-col>
           </el-row>
@@ -61,6 +79,8 @@ import banner from "./common/banner.vue";
 import pwd from "./common/pwd.vue";
 import logout from "./common/logout.vue";
 import s_price from "./common/s_price.vue";
+import down from "./common/down.vue";
+import file from "./common/file.vue";
 export default {
   data() {
     return {
@@ -68,14 +88,12 @@ export default {
       user_info: []
     };
   },
-  mounted(){
-    this.$store.commit("getData");
+  mounted() {
   },
   methods: {
     change_show(isStr) {
       this.isStr = isStr;
-    },
-    
+    }
   },
   components: {
     apply,
@@ -83,7 +101,9 @@ export default {
     user_info,
     pwd,
     logout,
-    s_price
+    s_price,
+    down,
+    file
   }
 };
 </script>

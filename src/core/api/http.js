@@ -1,5 +1,7 @@
+import Vue from 'vue';
 import axios from "axios";
-
+import { Loading } from 'element-ui';
+let loading;
 var instance = axios.create({
     baseURL: "",
     timeout: 10000,
@@ -22,7 +24,11 @@ var instance = axios.create({
 instance.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     //打开loading
-
+    loading = Loading.service({
+        lock: true,
+        text: '加载中……',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
     // config.headers.token="xxxxxxsalkfhsdjkfh"
     // 加入一些通用配置 通用参数
     // console.log(config)
@@ -37,6 +43,7 @@ instance.interceptors.request.use(function (config) {
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
     // 对响应数据做点什么
+    loading.close();
     // console.log(response)
     //关闭loading
     return response;

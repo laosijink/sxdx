@@ -29,5 +29,23 @@ class Apis {
             }
         })
     }
+    down() {
+        return request({
+            method: "GET",
+            url: "/file/getApplyDocument",
+            headers: {
+                token: params.token
+            }
+        })
+    }
+    allStudent() {
+        return request({
+            method: "POST",
+            url: "/teacher/getAllStudent",
+            headers: {
+                token: params.token
+            }
+        })
+    }
 }
 export default new Apis();
