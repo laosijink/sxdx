@@ -38,13 +38,13 @@
         <el-form-item label="手机号码" prop="phone">
           <el-input v-model="userInfo.phoneNumber"></el-input>
         </el-form-item>
-        <el-form-item label="申请内容" prop="content">
-          <el-select v-model="value" filterable placeholder="请选择" class="sty_left">
+        <el-form-item label="申请奖项" prop="content">
+          <el-select v-model="ruleForm.awards_id" filterable placeholder="请选择" class="sty_left">
             <el-option
               v-for="item in options"
               :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              :label="item.name"
+              :value="item.awards_id"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -90,7 +90,7 @@ export default {
         class: "",
         card_number: "",
         apply_time: "",
-        awards_ID: "奖学金"
+        awards_id: ""
       },
       userInfo: {
         id: "",
@@ -101,22 +101,7 @@ export default {
         uni: "",
         gender: "男"
       },
-      // {"phoneNumber":"11011112365","gender":"男","nation":"汉族","name":"Jack","idCardNumber":"软件工程","id":"201602801111","department":"软件学院"}
-      options: [
-        {
-          value: "奖学金",
-          label: "奖学金"
-        },
-        {
-          value: "助学金",
-          label: "助学金"
-        },
-        {
-          value: "助学贷款",
-          label: "助学贷款"
-        }
-      ],
-      value:""
+      options: [],
     };
   },
   mounted() {
@@ -124,6 +109,9 @@ export default {
     that.getdatatime();
     this.$apis.getUserData().then(res => {
       this.userInfo = res.data;
+    });
+    this.$apis.getAwardsID().then(res => {
+      this.options = res.data;
     });
   },
   methods: {

@@ -47,5 +47,14 @@ class Apis {
             }
         })
     }
+    getAwardsID(){
+        return request({
+            method: "GET",
+            url: "/student/getAwardItems",
+            headers: {
+                token: params.token
+            }
+        })
+    }
 }
 export default new Apis();

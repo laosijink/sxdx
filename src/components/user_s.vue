@@ -6,8 +6,8 @@
         <img src="../../public/img/topbt.png" alt />
         <div class="exit">
           <span>当前用户：</span>
-          <span>giao哥</span>
-          <el-button type="danger" plain size="small" style="margin-left:10px">安全退出</el-button>
+          <span>{{this.$store.state.currentUser}}</span>
+          <el-button type="danger" plain size="small" style="margin-left:10px" @click="exit()">安全退出</el-button>
         </div>
       </el-header>
       <el-container class="contain">
@@ -89,10 +89,22 @@ export default {
     };
   },
   mounted() {
+    this.isLogo();
   },
   methods: {
+    isLogo() {
+          if (sessionStorage.getItem('userName')) {
+            this.$store.commit('userStatus',sessionStorage.getItem('userName'))
+          }else{
+            this.$router.push("/login");
+          }
+        },
     change_show(isStr) {
       this.isStr = isStr;
+    },
+    exit(){
+      sessionStorage.removeItem('userName');
+      this.$router.push("/login");
     }
   },
   components: {

@@ -3,7 +3,6 @@
     <el-table
       :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
       style="width: 100%"
-      v-loading="loading"
     >
       <el-table-column label="文件名" prop="name"></el-table-column>
       <el-table-column label="时间" prop="time"></el-table-column>

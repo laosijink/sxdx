@@ -17,7 +17,7 @@ const routes = [{
       component: () => import("@/components/login.vue"),
       meta: {
         title: "登录",
-        keepAlive: false
+        keepAlive: false,
       }
     },
     {
@@ -33,7 +33,8 @@ const routes = [{
       component: () => import("@/components/user_s.vue"),
       meta: {
         title: "学生端",
-        keepAlive: false
+        keepAlive: false,
+        isLogin:true 
       }
     },
     {
@@ -41,7 +42,8 @@ const routes = [{
       component: () => import("@/components/user_t.vue"),
       meta: {
         title: "教师端",
-        keepAlive: false
+        keepAlive: false,
+        isLogin:true 
       }
     },
     {
@@ -49,15 +51,36 @@ const routes = [{
       component: () => import("@/components/user_r.vue"),
       meta: {
         title: "管理员端",
-        keepAlive: false
+        keepAlive: false,
+        isLogin:true 
       }
     },
   ],
   redirect: "login"
 }];
+
+
 const router = new VueRouter({
   // mode:"history",
   routes
 });
+router.beforeEach((to,from,next)=>{
+  if(to.matched.some(res=>res.meta.isLogin)){//判断是否需要登录
+      if (sessionStorage['userName']) {
+          next();
+      }else{
+          next({
+              path:"/login",
+              query:{
+                  redirect:to.fullPath
+              }
+          });
+      }
+
+  }else{
+      next()
+  }
+});
+
 
 export default router;

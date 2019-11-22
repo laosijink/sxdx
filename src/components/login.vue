@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div>
-      <div class="topbt" >
+      <div class="topbt">
         <img src="../../public/img/topbt.png" />
       </div>
     </div>
@@ -113,6 +113,7 @@ export default {
     });
   },
   methods: {
+     
     //验证码模块
     randomNum(min, max) {
       return Math.floor(Math.random() * (max - min) + min);
@@ -132,100 +133,108 @@ export default {
     },
     //登录按钮
     login() {
-      if (this.input3 === this.identifyCode) {
-        this.refreshCode();
-        let data = this.info;
-        if (data.value === "学生") {
-          axios({
-            method: "post",
-            url: "/student/login",
-            withCredentials: true,
-            data: data
-          }).then(res => {
-            console.log(res);
-            if (res.data.status === "0") {
-              this.$message({
-                showClose: true,
-                message: "登录成功！",
-                type: "success"
-              });
-              this.$router.push("/user_s");
-            } else if (res.data.status === "1") {
-              this.$message({
-                showClose: true,
-                message: "用户名不存在",
-                type: "warning"
-              });
-            } else if (res.data.status === "2") {
-              this.$message({
-                showClose: true,
-                message: "密码错误",
-                type: "error"
-              });
-            }
-          });
-        } else if (data.value === "教师") {
-          axios({
-            method: "post",
-            url: "/teacher/login",
-            withCredentials: true,
-            data: data
-          }).then(res => {
-            if (res.data.status === "0") {
-              this.$message({
-                showClose: true,
-                message: "登录成功！",
-                type: "success"
-              });
-              this.$router.push("/user_t");
-            } else if (res.data.status === "1") {
-              this.$message({
-                showClose: true,
-                message: "用户名不存在",
-                type: "warning"
-              });
-            } else if (res.data.status === "2") {
-              this.$message({
-                showClose: true,
-                message: "密码错误",
-                type: "error"
-              });
-            }
-          });
-        } else {
-          axios({
-            method: "post",
-            url: "/root/login",
-            withCredentials: true,
-            data: data
-          }).then(res => {
-            if (res.data.status === "0") {
-              this.$message({
-                showClose: true,
-                message: "登录成功！",
-                type: "success"
-              });
-              this.$router.push("/user_r");
-            } else if (res.data.status === "1") {
-              this.$message({
-                showClose: true,
-                message: "用户名不存在",
-                type: "warning"
-              });
-            } else if (res.data.status === "2") {
-              this.$message({
-                showClose: true,
-                message: "密码错误",
-                type: "error"
-              });
-            }
-          });
-        }
-      } else {
-        this.$message.error("验证码错误！");
-      }
-    }
-  }
+      sessionStorage.setItem("userName", this.info.uname);
+              //将用户名放入vuex
+              this.$store.dispatch("setUser", this.info.uname);
+      this.$router.push("/user_s");
+    //   if (this.input3 === this.identifyCode) {
+    //     this.refreshCode();
+    //     let data = this.info;
+    //     if (data.value === "学生") {
+    //       axios({
+    //         method: "post",
+    //         url: "/student/login",
+    //         withCredentials: true,
+    //         data: data
+    //       }).then(res => {
+    //         console.log(res);
+    //         if (res.data.status === "0") {
+    //           this.$message({
+    //             showClose: true,
+    //             message: "登录成功！",
+    //             type: "success"
+    //           })
+    //           sessionStorage.setItem("userName", this.info.uname);
+    //           //将用户名放入vuex
+    //           this.$store.dispatch("setUser", this.info.uname);
+    //           this.$router.push("/user_s");
+              
+    //         } else if (res.data.status === "1") {
+    //           this.$message({
+    //             showClose: true,
+    //             message: "用户名不存在",
+    //             type: "warning"
+    //           });
+    //         } else if (res.data.status === "2") {
+    //           this.$message({
+    //             showClose: true,
+    //             message: "密码错误",
+    //             type: "error"
+    //           });
+    //         }
+    //       });
+    //     } else if (data.value === "教师") {
+    //       axios({
+    //         method: "post",
+    //         url: "/teacher/login",
+    //         withCredentials: true,
+    //         data: data
+    //       }).then(res => {
+    //         if (res.data.status === "0") {
+    //           this.$message({
+    //             showClose: true,
+    //             message: "登录成功！",
+    //             type: "success"
+    //           });
+    //           this.$router.push("/user_t");
+    //         } else if (res.data.status === "1") {
+    //           this.$message({
+    //             showClose: true,
+    //             message: "用户名不存在",
+    //             type: "warning"
+    //           });
+    //         } else if (res.data.status === "2") {
+    //           this.$message({
+    //             showClose: true,
+    //             message: "密码错误",
+    //             type: "error"
+    //           });
+    //         }
+    //       });
+    //     } else {
+    //       axios({
+    //         method: "post",
+    //         url: "/root/login",
+    //         withCredentials: true,
+    //         data: data
+    //       }).then(res => {
+    //         if (res.data.status === "0") {
+    //           this.$message({
+    //             showClose: true,
+    //             message: "登录成功！",
+    //             type: "success"
+    //           });
+    //           this.$router.push("/user_r");
+    //         } else if (res.data.status === "1") {
+    //           this.$message({
+    //             showClose: true,
+    //             message: "用户名不存在",
+    //             type: "warning"
+    //           });
+    //         } else if (res.data.status === "2") {
+    //           this.$message({
+    //             showClose: true,
+    //             message: "密码错误",
+    //             type: "error"
+    //           });
+    //         }
+    //       });
+    //     }
+    //   } else {
+    //     this.$message.error("验证码错误！");
+    //   }
+     }
+   }
 };
 </script>
 <style lang="scss" scoped>
