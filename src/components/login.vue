@@ -136,7 +136,7 @@ export default {
       sessionStorage.setItem("userName", this.info.uname);
               //将用户名放入vuex
               this.$store.dispatch("setUser", this.info.uname);
-      this.$router.push("/user_s");
+      this.$router.push("/user_t");
     //   if (this.input3 === this.identifyCode) {
     //     this.refreshCode();
     //     let data = this.info;
@@ -186,6 +186,9 @@ export default {
     //             message: "登录成功！",
     //             type: "success"
     //           });
+    //           sessionStorage.setItem("userName", this.info.uname);
+    //           //将用户名放入vuex
+    //           this.$store.dispatch("setUser", this.info.uname);
     //           this.$router.push("/user_t");
     //         } else if (res.data.status === "1") {
     //           this.$message({
@@ -214,6 +217,9 @@ export default {
     //             message: "登录成功！",
     //             type: "success"
     //           });
+    //           sessionStorage.setItem("userName", this.info.uname);
+    //           //将用户名放入vuex
+    //           this.$store.dispatch("setUser", this.info.uname);
     //           this.$router.push("/user_r");
     //         } else if (res.data.status === "1") {
     //           this.$message({
@@ -233,7 +239,7 @@ export default {
     //   } else {
     //     this.$message.error("验证码错误！");
     //   }
-     }
+      }
    }
 };
 </script>
